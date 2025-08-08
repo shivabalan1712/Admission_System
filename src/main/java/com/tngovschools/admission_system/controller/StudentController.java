@@ -1,32 +1,45 @@
 package com.tngovschools.admission_system.controller;
 
 import com.tngovschools.admission_system.model.Student;
-import com.tngovschools.admission_system.repository.StudentRepo;
 import com.tngovschools.admission_system.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/students")
 public class StudentController {
-    @Autowired
-    StudentRepo studentRepo;
 
-    @GetMapping("/addStudent")
-    public String createStudent(Student student) {
-        studentRepo.save(student);
-        return "Success";
-    }
+    @Autowired
+    private StudentService studentService;
 
     @PostMapping
-    public String updateStudent(@RequestBody Student student) {
-        for(Student s: studentRepo.findAll()) {
-            if(s.getRollNo() == student.getRollNo()) {
-                studentRepo.save(student);
-            }
-        }
-        return "Student updated Successfully";
+    public Student createStudent(@RequestBody Student student) {
+        return studentService.createStudent(student);
+    }
+
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    @GetMapping("/{rollNo}")
+    public Student getStudent(@PathVariable Long rollNo) {
+        return studentService.getStudentByRollNo(rollNo)
+                .orElseThrow(() -> new RuntimeException("Student not found with rollNo: " + rollNo));
+    }
+
+    @PutMapping("/{rollNo}")
+    public Student updateStudent(@PathVariable Long rollNo, @RequestBody Student student) {
+        return studentService.updateStudent(rollNo, student)
+                .orElseThrow(() -> new RuntimeException("Student not found with rollNo: " + rollNo));
+    }
+
+    @DeleteMapping("/{rollNo}")
+    public String deleteStudent(@PathVariable Long rollNo) {
+        return studentService.deleteStudent(rollNo)
+                ? "Student deleted successfully"
+                : "Student not found";
     }
 }

@@ -1,5 +1,6 @@
 package com.tngovschools.admission_system.controller;
 
+import com.tngovschools.admission_system.dto.AdmissionDTO;
 import com.tngovschools.admission_system.model.Admission;
 import com.tngovschools.admission_system.model.AdmissionStatus;
 import com.tngovschools.admission_system.service.AdmissionService;
@@ -16,8 +17,8 @@ public class AdmissionController {
     private AdmissionService admissionService;
 
     @PostMapping
-    public Admission createAdmission(@RequestParam Long studentRollNo, @RequestParam String courseName) {
-        return admissionService.createAdmission(studentRollNo, courseName);
+    public Admission createAdmission(@RequestBody AdmissionDTO admissionDTO) {
+        return admissionService.createAdmission(admissionDTO.getStudentRollNo(), admissionDTO.getCourseName());
     }
 
     @GetMapping

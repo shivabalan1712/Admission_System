@@ -16,7 +16,7 @@ public class Admission {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "student_roll_no", nullable = false)
-    private Student student;
+    private Student studentRollNo;
 
     private String courseName;
 

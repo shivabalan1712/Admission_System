@@ -11,7 +11,7 @@ import lombok.*;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long rollNo;
+    private int rollNo;
 
     private String name;
     private String fatherName;

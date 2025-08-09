@@ -1,14 +1,16 @@
 package com.tngovschools.admission_system.service;
 
-import com.tngovschools.admission_system.model.Admission;
-import com.tngovschools.admission_system.model.AdmissionStatus;
-import com.tngovschools.admission_system.repository.AdmissionRepo;
-import com.tngovschools.admission_system.repository.StudentRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.tngovschools.admission_system.model.*;
+import com.tngovschools.admission_system.repository.*;
+
+import lombok.Data;
+
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
 import java.util.List;
 import java.util.Optional;
+@Data
 
 @Service
 public class AdmissionService {
@@ -19,12 +21,13 @@ public class AdmissionService {
     @Autowired
     private StudentRepo studentRepo;
 
+
     public Admission createAdmission(Long studentRollNo, String courseName) {
-        var student = studentRepo.findById(studentRollNo)
+        Student student = studentRepo.findById(studentRollNo)
                 .orElseThrow(() -> new RuntimeException("Student not found with rollNo: " + studentRollNo));
 
         Admission admission = new Admission();
-        admission.setStudent(student);
+        admission.setStudentRollNo(student);
         admission.setCourseName(courseName);
         admission.setStatus(AdmissionStatus.APPLIED);
 

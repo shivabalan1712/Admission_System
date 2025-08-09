@@ -14,7 +14,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping
+    @PostMapping("/add")
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }

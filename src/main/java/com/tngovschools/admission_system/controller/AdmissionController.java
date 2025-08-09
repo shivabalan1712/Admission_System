@@ -16,6 +16,7 @@ public class AdmissionController {
     @Autowired
     private AdmissionService admissionService;
 
+
     @PostMapping
     public Admission createAdmission(@RequestBody AdmissionDTO admissionDTO) {
         return admissionService.createAdmission(admissionDTO.getStudentRollNo(), admissionDTO.getCourseName());

@@ -1,10 +1,12 @@
 package com.tngovschools.admission_system.service;
 
+import com.tngovschools.admission_system.dto.AdmissionDTO;
 import com.tngovschools.admission_system.model.*;
 import com.tngovschools.admission_system.repository.*;
 
 import lombok.Data;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -20,6 +22,17 @@ public class AdmissionService {
 
     @Autowired
     private StudentRepo studentRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public Admission convertToEntity(AdmissionDTO admissionDTO) {
+        return modelMapper.map(admissionDTO, Admission.class);
+    }
+
+    public AdmissionDTO convertToDto(Admission admission) {
+        return modelMapper.map(admission, AdmissionDTO.class);
+    }
 
 
     public Admission createAdmission(Long studentRollNo, String courseName) {

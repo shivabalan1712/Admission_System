@@ -1,6 +1,6 @@
 package com.tngovschools.admission_system.service;
 
-//import com.tngovschools.admission_system.dto.StudentDTO;
+import com.tngovschools.admission_system.dto.StudentDTO;
 import com.tngovschools.admission_system.model.Student;
 import com.tngovschools.admission_system.repository.StudentRepo;
 import org.modelmapper.ModelMapper;
@@ -16,16 +16,16 @@ public class StudentService {
     @Autowired
     private StudentRepo studentRepo;
 
-//    @Autowired
-//    private ModelMapper modelMapper;
-//
-//    public StudentDTO convertToDto(Student student) {
-//        return new ModelMapper().map(student, StudentDTO.class);
-//    }
-//
-//    public Student convertToEntity(StudentDTO studentDTO) {
-//        return new ModelMapper().map(studentDTO, Student.class);
-//    }
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public StudentDTO convertToDto(Student student) {
+        return new ModelMapper().map(student, StudentDTO.class);
+    }
+
+    public Student convertToEntity(StudentDTO studentDTO) {
+        return new ModelMapper().map(studentDTO, Student.class);
+    }
 
     public Student createStudent(Student student) {
         return studentRepo.save(student);
